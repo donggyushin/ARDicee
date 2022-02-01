@@ -14,4 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and tests ( iOS 15.2)
-      run: xcodebuild test -scheme ARDicee -destination 'platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro' CODE_SIGNING_ALLOWED=NO IPHONEOS_DEPLOYMENT_TARGET=13.0
+      run: xcodebuild test -project ARDicee/ARDicee.xcodeproj -scheme ARDicee -destination 'platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro' CODE_SIGNING_ALLOWED=NO IPHONEOS_DEPLOYMENT_TARGET=13.0
+
