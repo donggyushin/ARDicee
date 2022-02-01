@@ -69,14 +69,10 @@ class ViewController: UIViewController {
     }
     
     private func createDiceNode() -> SCNNode {
-        let cube = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.01)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red
-        cube.materials = [material]
-        let node = SCNNode()
-        node.position = .init(0, 0, -0.5)
-        node.geometry = cube
-        return node
+        guard let diceScene = SCNScene(named: "art.scnassets/diceCollada.scn") else { return .init() }
+        guard let diceNode = diceScene.rootNode.childNode(withName: "Dice", recursively: true) else { return .init() }
+        diceNode.position = .init(0, 0, -0.1)
+        return diceNode
     }
     
     private func createMoonNode() -> SCNNode {
