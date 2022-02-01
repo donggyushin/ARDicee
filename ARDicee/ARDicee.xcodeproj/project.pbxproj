@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702BF14C27A939380015E0DF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702BF14B27A939380015E0DF /* ViewModel.swift */; };
+		702BF14E27A93BF30015E0DF /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702BF14D27A93BF30015E0DF /* CompositionRoot.swift */; };
+		702BF15627A93FD80015E0DF /* ARDiceeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702BF15527A93FD80015E0DF /* ARDiceeTests.swift */; };
 		70A6D63D27A9331800471D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A6D63C27A9331800471D32 /* AppDelegate.swift */; };
 		70A6D63F27A9331800471D32 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 70A6D63E27A9331800471D32 /* art.scnassets */; };
 		70A6D64127A9331800471D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A6D64027A9331800471D32 /* ViewController.swift */; };
@@ -15,7 +18,21 @@
 		70A6D64927A9331800471D32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70A6D64727A9331800471D32 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		702BF15727A93FD80015E0DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70A6D63127A9331800471D32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70A6D63827A9331800471D32;
+			remoteInfo = ARDicee;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		702BF14B27A939380015E0DF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		702BF14D27A93BF30015E0DF /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
+		702BF15327A93FD80015E0DF /* ARDiceeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARDiceeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		702BF15527A93FD80015E0DF /* ARDiceeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDiceeTests.swift; sourceTree = "<group>"; };
 		70A6D63927A9331800471D32 /* ARDicee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARDicee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70A6D63C27A9331800471D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70A6D63E27A9331800471D32 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -26,6 +43,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		702BF15027A93FD80015E0DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		70A6D63627A9331800471D32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -36,10 +60,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		702BF15427A93FD80015E0DF /* ARDiceeTests */ = {
+			isa = PBXGroup;
+			children = (
+				702BF15527A93FD80015E0DF /* ARDiceeTests.swift */,
+			);
+			path = ARDiceeTests;
+			sourceTree = "<group>";
+		};
 		70A6D63027A9331800471D32 = {
 			isa = PBXGroup;
 			children = (
 				70A6D63B27A9331800471D32 /* ARDicee */,
+				702BF15427A93FD80015E0DF /* ARDiceeTests */,
 				70A6D63A27A9331800471D32 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				70A6D63927A9331800471D32 /* ARDicee.app */,
+				702BF15327A93FD80015E0DF /* ARDiceeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +95,8 @@
 				70A6D63E27A9331800471D32 /* art.scnassets */,
 				70A6D64527A9331800471D32 /* Assets.xcassets */,
 				70A6D64727A9331800471D32 /* LaunchScreen.storyboard */,
+				702BF14B27A939380015E0DF /* ViewModel.swift */,
+				702BF14D27A93BF30015E0DF /* CompositionRoot.swift */,
 			);
 			path = ARDicee;
 			sourceTree = "<group>";
@@ -68,6 +104,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		702BF15227A93FD80015E0DF /* ARDiceeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 702BF15927A93FD80015E0DF /* Build configuration list for PBXNativeTarget "ARDiceeTests" */;
+			buildPhases = (
+				702BF14F27A93FD80015E0DF /* Sources */,
+				702BF15027A93FD80015E0DF /* Frameworks */,
+				702BF15127A93FD80015E0DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				702BF15827A93FD80015E0DF /* PBXTargetDependency */,
+			);
+			name = ARDiceeTests;
+			productName = ARDiceeTests;
+			productReference = 702BF15327A93FD80015E0DF /* ARDiceeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		70A6D63827A9331800471D32 /* ARDicee */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70A6D64C27A9331800471D32 /* Build configuration list for PBXNativeTarget "ARDicee" */;
@@ -95,6 +149,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					702BF15227A93FD80015E0DF = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 70A6D63827A9331800471D32;
+					};
 					70A6D63827A9331800471D32 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -114,11 +172,19 @@
 			projectRoot = "";
 			targets = (
 				70A6D63827A9331800471D32 /* ARDicee */,
+				702BF15227A93FD80015E0DF /* ARDiceeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		702BF15127A93FD80015E0DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		70A6D63727A9331800471D32 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,16 +199,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		702BF14F27A93FD80015E0DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				702BF15627A93FD80015E0DF /* ARDiceeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		70A6D63527A9331800471D32 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				702BF14E27A93BF30015E0DF /* CompositionRoot.swift in Sources */,
 				70A6D64127A9331800471D32 /* ViewController.swift in Sources */,
+				702BF14C27A939380015E0DF /* ViewModel.swift in Sources */,
 				70A6D63D27A9331800471D32 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		702BF15827A93FD80015E0DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70A6D63827A9331800471D32 /* ARDicee */;
+			targetProxy = 702BF15727A93FD80015E0DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		70A6D64227A9331800471D32 /* Main.storyboard */ = {
@@ -164,6 +248,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		702BF15A27A93FD80015E0DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YV58Q28W8Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donggyu.ARDiceeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARDicee.app/ARDicee";
+			};
+			name = Debug;
+		};
+		702BF15B27A93FD80015E0DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YV58Q28W8Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donggyu.ARDiceeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARDicee.app/ARDicee";
+			};
+			name = Release;
+		};
 		70A6D64A27A9331800471D32 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -343,6 +463,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		702BF15927A93FD80015E0DF /* Build configuration list for PBXNativeTarget "ARDiceeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				702BF15A27A93FD80015E0DF /* Debug */,
+				702BF15B27A93FD80015E0DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		70A6D63427A9331800471D32 /* Build configuration list for PBXProject "ARDicee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
