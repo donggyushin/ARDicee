@@ -54,11 +54,8 @@ class ViewController: UIViewController {
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        addNode(sceneView, createDiceNode())
+        sceneView.autoenablesDefaultLighting = true 
     }
     
     private func bind(viewModel: ViewModel) {
@@ -68,5 +65,20 @@ class ViewController: UIViewController {
             alert.addAction(yes)
             self?.present(alert, animated: true)
         }.store(in: &viewModel.subscriber)
+    }
+    
+    private func createDiceNode() -> SCNNode {
+        let cube = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.01)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.red
+        cube.materials = [material]
+        let node = SCNNode()
+        node.position = .init(0, 0, -0.5)
+        node.geometry = cube
+        return node
+    }
+    
+    private func addNode(_ sceneView: ARSCNView, _ node: SCNNode) {
+        sceneView.scene.rootNode.addChildNode(node)
     }
 }
