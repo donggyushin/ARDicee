@@ -55,6 +55,7 @@ class ViewController: UIViewController {
         ])
         
         addNode(sceneView, createDiceNode())
+        addNode(sceneView, createMoonNode())
         sceneView.autoenablesDefaultLighting = true 
     }
     
@@ -75,6 +76,17 @@ class ViewController: UIViewController {
         let node = SCNNode()
         node.position = .init(0, 0, -0.5)
         node.geometry = cube
+        return node
+    }
+    
+    private func createMoonNode() -> SCNNode {
+        let moon = SCNSphere(radius: 0.2)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "art.scnassets/8k_moon.jpeg")
+        moon.materials = [material]
+        let node = SCNNode()
+        node.position = .init(-1, 1, -1)
+        node.geometry = moon
         return node
     }
     
