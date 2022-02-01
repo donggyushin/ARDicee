@@ -10,11 +10,49 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
-    @IBOutlet var sceneView: ARSCNView!
+    
+    struct Dependency {
+        let viewModel: ViewModel
+    }
+    
+    init(dependency: Dependency) {
+        viewModel = dependency.viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = .init()
+        super.init(coder: coder)
+    }
+    
+    let sceneView: ARSCNView = .init()
+    private let viewModel: ViewModel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+        bind(viewModel: viewModel)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillApear(sceneView: sceneView)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.viewWillDisappear(sceneView: sceneView)
+    }
+    
+    private func configureUI() {
+        view.addSubview(sceneView)
+        sceneView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sceneView.topAnchor.constraint(equalTo: view.topAnchor),
+            sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -26,20 +64,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-
-        // Run the view's session
-        sceneView.session.run(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
+    private func bind(viewModel: ViewModel) {
+        viewModel.$alertMessage.compactMap({ $0 }).sink { [weak self] alertMessage in
+            let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
+            let yes = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(yes)
+            self?.present(alert, animated: true)
+        }.store(in: &viewModel.subscriber)
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702BF14C27A939380015E0DF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702BF14B27A939380015E0DF /* ViewModel.swift */; };
+		702BF14E27A93BF30015E0DF /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702BF14D27A93BF30015E0DF /* CompositionRoot.swift */; };
 		70A6D63D27A9331800471D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A6D63C27A9331800471D32 /* AppDelegate.swift */; };
 		70A6D63F27A9331800471D32 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 70A6D63E27A9331800471D32 /* art.scnassets */; };
 		70A6D64127A9331800471D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A6D64027A9331800471D32 /* ViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		702BF14B27A939380015E0DF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		702BF14D27A93BF30015E0DF /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		70A6D63927A9331800471D32 /* ARDicee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARDicee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70A6D63C27A9331800471D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70A6D63E27A9331800471D32 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 				70A6D63E27A9331800471D32 /* art.scnassets */,
 				70A6D64527A9331800471D32 /* Assets.xcassets */,
 				70A6D64727A9331800471D32 /* LaunchScreen.storyboard */,
+				702BF14B27A939380015E0DF /* ViewModel.swift */,
+				702BF14D27A93BF30015E0DF /* CompositionRoot.swift */,
 			);
 			path = ARDicee;
 			sourceTree = "<group>";
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				702BF14E27A93BF30015E0DF /* CompositionRoot.swift in Sources */,
 				70A6D64127A9331800471D32 /* ViewController.swift in Sources */,
+				702BF14C27A939380015E0DF /* ViewModel.swift in Sources */,
 				70A6D63D27A9331800471D32 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
