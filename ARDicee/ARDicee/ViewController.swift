@@ -9,7 +9,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController {
     
     struct Dependency {
         let viewModel: ViewModel
@@ -53,9 +53,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        // Set the view's delegate
-        sceneView.delegate = self
         
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
