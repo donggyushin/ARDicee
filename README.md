@@ -1,11 +1,16 @@
 # ARDicee
 Simple augmented reality app using SceneKit and ARKit
 
+## Requirements
+- Xcode13.2.1 +
+- swift5.5 +
+- iOS15.2 +
+
 ## Start
 ```
 git clone https://github.com/donggyushin/ARDicee.git
-cd ARDicee/ARDicee
-xed .
+cd ARDicee
+xed ARDicee/
 command + R
 ```
 
