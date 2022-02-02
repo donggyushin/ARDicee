@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        configureUI(viewModel: viewModel)
         bind(viewModel: viewModel)
     }
     
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         viewModel.viewWillDisappear(sceneView: sceneView)
     }
     
-    private func configureUI() {
+    private func configureUI(viewModel: ViewModel) {
         view.addSubview(sceneView)
         sceneView.delegate = self
         sceneView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,8 +55,8 @@ class ViewController: UIViewController {
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        addNode(sceneView, createDiceNode())
-        addNode(sceneView, createMoonNode())
+        addNode(sceneView, viewModel.createDiceNode())
+        addNode(sceneView, viewModel.createMoonNode())
         sceneView.autoenablesDefaultLighting = true 
     }
     
@@ -67,24 +67,6 @@ class ViewController: UIViewController {
             alert.addAction(yes)
             self?.present(alert, animated: true)
         }.store(in: &viewModel.subscriber)
-    }
-    
-    private func createDiceNode() -> SCNNode {
-        guard let diceScene = SCNScene(named: "art.scnassets/diceCollada.scn") else { return .init() }
-        guard let diceNode = diceScene.rootNode.childNode(withName: "Dice", recursively: true) else { return .init() }
-        diceNode.position = .init(0, 0, -0.1)
-        return diceNode
-    }
-    
-    private func createMoonNode() -> SCNNode {
-        let moon = SCNSphere(radius: 0.2)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "art.scnassets/8k_moon.jpeg")
-        moon.materials = [material]
-        let node = SCNNode()
-        node.position = .init(-1, 1, -1)
-        node.geometry = moon
-        return node
     }
     
     private func addNode(_ sceneView: ARSCNView, _ node: SCNNode) {
