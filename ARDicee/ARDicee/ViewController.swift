@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(sceneView)
+        sceneView.delegate = self
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -88,5 +89,13 @@ class ViewController: UIViewController {
     
     private func addNode(_ sceneView: ARSCNView, _ node: SCNNode) {
         sceneView.scene.rootNode.addChildNode(node)
+    }
+}
+
+extension ViewController: ARSCNViewDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if anchor is ARPlaneAnchor {
+            print("plane anchor detected")
+        }
     }
 }
