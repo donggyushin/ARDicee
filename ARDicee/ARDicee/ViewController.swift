@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI(viewModel: viewModel)
+        configureUI()
         bind(viewModel: viewModel)
     }
     
@@ -44,8 +44,9 @@ class ViewController: UIViewController {
         viewModel.viewWillDisappear(sceneView: sceneView)
     }
     
-    private func configureUI(viewModel: ViewModel) {
+    private func configureUI() {
         view.addSubview(sceneView)
+        sceneView.debugOptions = [.showFeaturePoints]
         sceneView.delegate = self
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -54,30 +55,42 @@ class ViewController: UIViewController {
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        addNode(sceneView, viewModel.createDiceNode())
-        addNode(sceneView, viewModel.createMoonNode())
-        sceneView.autoenablesDefaultLighting = true 
+        sceneView.autoenablesDefaultLighting = true
     }
     
     private func bind(viewModel: ViewModel) {
+        viewModel.viewDidLoad()
+        
         viewModel.$alertMessage.compactMap({ $0 }).sink { [weak self] alertMessage in
             let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
             let yes = UIAlertAction(title: "Ok", style: .default)
             alert.addAction(yes)
             self?.present(alert, animated: true)
         }.store(in: &viewModel.subscriber)
+        
+        viewModel.$moonNode.compactMap({ $0 }).sink { [weak self] moon in
+            self?.addNode(moon)
+        }.store(in: &viewModel.subscriber)
+        
+        viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
+            self?.addNode(dice)
+        }.store(in: &viewModel.subscriber)
+        
+        viewModel.$planeNode.compactMap({ $0 }).prefix(1).sink { [weak self] plane in
+            self?.addNode(plane)
+        }.store(in: &viewModel.subscriber)
     }
     
-    private func addNode(_ sceneView: ARSCNView, _ node: SCNNode) {
+    private func addNode(_ node: SCNNode) {
         sceneView.scene.rootNode.addChildNode(node)
     }
 }
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        if anchor is ARPlaneAnchor {
-            print("plane anchor detected")
+        
+        if let planeAnchor = anchor as? ARPlaneAnchor {
+            viewModel.planeAnchorDetected(planeAnchor: planeAnchor)
         }
     }
 }
