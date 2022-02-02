@@ -20,14 +20,14 @@ class ViewModel {
     
     func viewDidLoad() {
         self.moonNode = createMoonNode()
-        self.diceNode = createDiceNode()
+//        self.diceNode = createDiceNode()
     }
     
     func viewWillApear(sceneView: ARSCNView) {
         if ARWorldTrackingConfiguration.isSupported {
             // Create a session configuration
             let configuration = ARWorldTrackingConfiguration()
-            configuration.planeDetection = .horizontal
+            configuration.planeDetection = [.horizontal, .vertical]
             // Run the view's session
             sceneView.session.run(configuration)
         } else {
@@ -40,16 +40,17 @@ class ViewModel {
     }
     
     func planeAnchorDetected(planeAnchor: ARPlaneAnchor) {
-        let plane: SCNPlane = .init(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        let planeNode: SCNNode = .init()
-        planeNode.position = .init(planeAnchor.center.x, 0, planeAnchor.center.z)
-        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
         
+        let extentPlane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+        let extentNode = SCNNode(geometry: extentPlane)
         let gridMaterial = SCNMaterial()
+        
+        extentNode.simdPosition = planeAnchor.center
+        extentNode.eulerAngles.x = -.pi / 2
         gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
-        plane.materials = [gridMaterial]
-        planeNode.geometry = plane
-        self.planeNode = planeNode
+        extentPlane.materials = [gridMaterial]
+        
+        self.planeNode = extentNode
     }
     
     private func createMoonNode() -> SCNNode {

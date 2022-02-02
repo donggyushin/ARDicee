@@ -88,7 +88,6 @@ class ViewController: UIViewController {
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
         if let planeAnchor = anchor as? ARPlaneAnchor {
             viewModel.planeAnchorDetected(planeAnchor: planeAnchor)
         }
