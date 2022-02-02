@@ -49,7 +49,6 @@ class ViewModel {
         extentNode.eulerAngles.x = -.pi / 2
         gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
         extentPlane.materials = [gridMaterial]
-        
         self.planeNode = extentNode
     }
     
