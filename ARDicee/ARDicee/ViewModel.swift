@@ -13,6 +13,7 @@ import UIKit
 class ViewModel {
     @Published var alertMessage: String?
     @Published var moonNode: SCNNode?
+    @Published var diceNode: SCNNode?
     
     var subscriber: Set<AnyCancellable> = .init()
     
@@ -47,6 +48,11 @@ class ViewModel {
         node.addChildNode(extentNode)
     }
     
+    func touchDetected(result: ARRaycastResult) {
+        let dice = createDiceNode(result: result)
+        self.diceNode = dice
+    }
+    
     private func createMoonNode() -> SCNNode {
         let moon = SCNSphere(radius: 0.2)
         let material = SCNMaterial()
@@ -58,10 +64,11 @@ class ViewModel {
         return node
     }
     
-    private func createDiceNode() -> SCNNode {
+    private func createDiceNode(result: ARRaycastResult) -> SCNNode {
         guard let diceScene = SCNScene(named: "art.scnassets/diceCollada.scn") else { return .init() }
         guard let diceNode = diceScene.rootNode.childNode(withName: "Dice", recursively: true) else { return .init() }
-        diceNode.position = .init(0, 0, -0.1)
+        let column3 = result.worldTransform.columns.3
+        diceNode.position = .init(column3.x, column3.y, column3.z)
         return diceNode
     }
 }

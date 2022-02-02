@@ -44,6 +44,14 @@ class ViewController: UIViewController {
         viewModel.viewWillDisappear(sceneView: sceneView)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: sceneView)
+        guard let query = sceneView.raycastQuery(from: location, allowing: .existingPlaneInfinite, alignment: .horizontal) else { return }
+        guard let result = sceneView.session.raycast(query).first else { return }
+        viewModel.touchDetected(result: result)
+    }
+    
     private func configureUI() {
         view.addSubview(sceneView)
         sceneView.debugOptions = [.showFeaturePoints]
@@ -70,6 +78,10 @@ class ViewController: UIViewController {
         
         viewModel.$moonNode.compactMap({ $0 }).sink { [weak self] moon in
             self?.addNode(moon)
+        }.store(in: &viewModel.subscriber)
+        
+        viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
+            self?.addNode(dice)
         }.store(in: &viewModel.subscriber)
     }
     
