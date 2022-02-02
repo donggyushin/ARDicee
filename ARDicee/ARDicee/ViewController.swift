@@ -75,10 +75,6 @@ class ViewController: UIViewController {
         viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
             self?.addNode(dice)
         }.store(in: &viewModel.subscriber)
-        
-        viewModel.$planeNode.compactMap({ $0 }).prefix(1).sink { [weak self] plane in
-            self?.addNode(plane)
-        }.store(in: &viewModel.subscriber)
     }
     
     private func addNode(_ node: SCNNode) {
@@ -89,7 +85,7 @@ class ViewController: UIViewController {
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            viewModel.planeAnchorDetected(planeAnchor: planeAnchor)
+            viewModel.planeAnchorDetected(planeAnchor: planeAnchor, node: node )
         }
     }
 }

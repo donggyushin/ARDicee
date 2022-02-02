@@ -14,21 +14,18 @@ class ViewModel {
     @Published var alertMessage: String?
     @Published var moonNode: SCNNode?
     @Published var diceNode: SCNNode?
-    @Published var planeNode: SCNNode?
     
     var subscriber: Set<AnyCancellable> = .init()
     
     func viewDidLoad() {
         self.moonNode = createMoonNode()
-//        self.diceNode = createDiceNode()
+        self.diceNode = createDiceNode()
     }
     
     func viewWillApear(sceneView: ARSCNView) {
         if ARWorldTrackingConfiguration.isSupported {
-            // Create a session configuration
             let configuration = ARWorldTrackingConfiguration()
-            configuration.planeDetection = [.horizontal, .vertical]
-            // Run the view's session
+            configuration.planeDetection = [.horizontal]
             sceneView.session.run(configuration)
         } else {
             self.alertMessage = "Your device is not available for AR World Tracking Service. Sorry for inconvenience"
@@ -39,7 +36,7 @@ class ViewModel {
         sceneView.session.pause()
     }
     
-    func planeAnchorDetected(planeAnchor: ARPlaneAnchor) {
+    func planeAnchorDetected(planeAnchor: ARPlaneAnchor, node: SCNNode) {
         
         let extentPlane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
         let extentNode = SCNNode(geometry: extentPlane)
@@ -49,7 +46,7 @@ class ViewModel {
         extentNode.eulerAngles.x = -.pi / 2
         gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
         extentPlane.materials = [gridMaterial]
-        self.planeNode = extentNode
+        node.addChildNode(extentNode)
     }
     
     private func createMoonNode() -> SCNNode {
