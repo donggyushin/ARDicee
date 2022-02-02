@@ -13,13 +13,11 @@ import UIKit
 class ViewModel {
     @Published var alertMessage: String?
     @Published var moonNode: SCNNode?
-    @Published var diceNode: SCNNode?
     
     var subscriber: Set<AnyCancellable> = .init()
     
     func viewDidLoad() {
         self.moonNode = createMoonNode()
-        self.diceNode = createDiceNode()
     }
     
     func viewWillApear(sceneView: ARSCNView) {

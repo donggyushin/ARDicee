@@ -71,10 +71,6 @@ class ViewController: UIViewController {
         viewModel.$moonNode.compactMap({ $0 }).sink { [weak self] moon in
             self?.addNode(moon)
         }.store(in: &viewModel.subscriber)
-        
-        viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
-            self?.addNode(dice)
-        }.store(in: &viewModel.subscriber)
     }
     
     private func addNode(_ node: SCNNode) {
