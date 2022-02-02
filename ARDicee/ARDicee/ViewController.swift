@@ -46,6 +46,8 @@ class ViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(sceneView)
+        sceneView.debugOptions = [.showFeaturePoints]
+        sceneView.delegate = self
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -53,40 +55,37 @@ class ViewController: UIViewController {
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        addNode(sceneView, createDiceNode())
-        addNode(sceneView, createMoonNode())
-        sceneView.autoenablesDefaultLighting = true 
+        sceneView.autoenablesDefaultLighting = true
     }
     
     private func bind(viewModel: ViewModel) {
+        viewModel.viewDidLoad()
+        
         viewModel.$alertMessage.compactMap({ $0 }).sink { [weak self] alertMessage in
             let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
             let yes = UIAlertAction(title: "Ok", style: .default)
             alert.addAction(yes)
             self?.present(alert, animated: true)
         }.store(in: &viewModel.subscriber)
+        
+        viewModel.$moonNode.compactMap({ $0 }).sink { [weak self] moon in
+            self?.addNode(moon)
+        }.store(in: &viewModel.subscriber)
+        
+        viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
+            self?.addNode(dice)
+        }.store(in: &viewModel.subscriber)
     }
     
-    private func createDiceNode() -> SCNNode {
-        guard let diceScene = SCNScene(named: "art.scnassets/diceCollada.scn") else { return .init() }
-        guard let diceNode = diceScene.rootNode.childNode(withName: "Dice", recursively: true) else { return .init() }
-        diceNode.position = .init(0, 0, -0.1)
-        return diceNode
-    }
-    
-    private func createMoonNode() -> SCNNode {
-        let moon = SCNSphere(radius: 0.2)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "art.scnassets/8k_moon.jpeg")
-        moon.materials = [material]
-        let node = SCNNode()
-        node.position = .init(-1, 1, -1)
-        node.geometry = moon
-        return node
-    }
-    
-    private func addNode(_ sceneView: ARSCNView, _ node: SCNNode) {
+    private func addNode(_ node: SCNNode) {
         sceneView.scene.rootNode.addChildNode(node)
+    }
+}
+
+extension ViewController: ARSCNViewDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if let planeAnchor = anchor as? ARPlaneAnchor {
+            viewModel.planeAnchorDetected(planeAnchor: planeAnchor, node: node )
+        }
     }
 }
