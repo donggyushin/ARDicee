@@ -14,7 +14,7 @@ class ViewModel {
     @Published var alertMessage: String?
     @Published var moonNode: SCNNode?
     @Published var diceNode: SCNNode?
-    private var dices: [SCNNode] = []
+    @Published var dices: [SCNNode] = []
     
     var subscriber: Set<AnyCancellable> = .init()
     

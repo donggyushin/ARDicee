@@ -28,6 +28,14 @@ class ViewController: UIViewController {
     let sceneView: ARSCNView = .init()
     private let viewModel: ViewModel
     
+    private lazy var rollButton: UIButton = {
+        let view = UIButton(configuration: .filled(), primaryAction: .init(handler: { _ in
+            self.viewModel.rollButtonTapped()
+        }))
+        view.setTitle("SHAKE", for: .normal)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -54,16 +62,23 @@ class ViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(sceneView)
+        view.addSubview(rollButton)
+        
         sceneView.debugOptions = [.showFeaturePoints]
         sceneView.delegate = self
+        sceneView.autoenablesDefaultLighting = true
+        
         sceneView.translatesAutoresizingMaskIntoConstraints = false
+        rollButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            rollButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        sceneView.autoenablesDefaultLighting = true
     }
     
     private func bind(viewModel: ViewModel) {
@@ -83,6 +98,10 @@ class ViewController: UIViewController {
         viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
             self?.addNode(dice)
             viewModel.diceGenerated(dice)
+        }.store(in: &viewModel.subscriber)
+        
+        viewModel.$dices.sink { [weak self] dices in
+            self?.rollButton.isHidden = dices.isEmpty
         }.store(in: &viewModel.subscriber)
     }
     
