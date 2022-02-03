@@ -17,6 +17,7 @@ command + R
 ## Features
 - Tap the screen to put a dice in ARWorld
 - Shake the device to roll the dices
+- Also you can clear the all dices on the screen
 
 ## Links
 - [3D models](https://www.turbosquid.com/AssetManager/Index.cfm?stgAction=getFiles&subAction=Download&intID=979691&intType=3&csrf=20E4C114E79E5F274B53EBF1FDAB2C5CA1A99641&showDownload=1&s=1)
