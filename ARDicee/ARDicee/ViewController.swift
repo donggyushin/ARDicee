@@ -82,7 +82,6 @@ class ViewController: UIViewController {
         
         viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
             self?.addNode(dice)
-            viewModel.roll(dice)
             viewModel.diceGenerated(dice)
         }.store(in: &viewModel.subscriber)
     }

@@ -33,6 +33,7 @@ class ViewModel {
     }
     
     func diceGenerated(_ dice: SCNNode) {
+        roll(dice)
         dices.append(dice)
     }
     
@@ -81,7 +82,7 @@ class ViewModel {
         return diceNode
     }
     
-    func roll(_ dice: SCNNode) {
+    private func roll(_ dice: SCNNode) {
         let x = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
         let z = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
         dice.runAction(.rotateBy(x: x, y: 0, z: z, duration: 0.5))
