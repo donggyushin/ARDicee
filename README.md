@@ -14,6 +14,10 @@ xed ARDicee/
 command + R
 ```
 
+## Click the image below to see the result
+[<img src="https://user-images.githubusercontent.com/34573243/152359709-98344c61-715b-4045-98eb-cc16ad2c6362.PNG" width=250 />](https://youtu.be/cZV4D0qK6K8)
+
+
 ## Features
 - Tap the screen to put a dice in ARWorld
 - Shake the device to roll the dices
