@@ -45,9 +45,9 @@ class ViewModel {
         rollAllDices()
     }
     
-    func clearButtonTapped(sceneView: ARSCNView) {
-        sceneView.scene.rootNode.childNodes.filter({ !($0 is MoonNode) }).forEach({ $0.removeFromParentNode() })
-        dices = [] 
+    func clearButtonTapped() {
+        dices.forEach({ $0.removeFromParentNode() })
+        dices = []
     }
     
     private func rollAllDices() {

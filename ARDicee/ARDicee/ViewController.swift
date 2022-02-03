@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     
     private lazy var clearButton: UIButton = {
         let view = UIButton(configuration: .filled(), primaryAction: .init(handler: { _ in
-            self.viewModel.clearButtonTapped(sceneView: self.sceneView)
+            self.viewModel.clearButtonTapped()
         }))
         view.tintColor = .systemRed
         view.setTitle("CLEAR", for: .normal)
