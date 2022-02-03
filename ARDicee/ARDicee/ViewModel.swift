@@ -38,6 +38,14 @@ class ViewModel {
     }
     
     func rollButtonTapped() {
+        rollAllDices()
+    }
+    
+    func deviceShaked() {
+        rollAllDices()
+    }
+    
+    private func rollAllDices() {
         dices.forEach({ roll($0) })
     }
     

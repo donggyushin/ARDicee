@@ -28,11 +28,17 @@ class ViewController: UIViewController {
     let sceneView: ARSCNView = .init()
     private let viewModel: ViewModel
     
+    private lazy var descriptionLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Shake your device to roll the dices"
+        return view
+    }()
+    
     private lazy var rollButton: UIButton = {
         let view = UIButton(configuration: .filled(), primaryAction: .init(handler: { _ in
             self.viewModel.rollButtonTapped()
         }))
-        view.setTitle("SHAKE", for: .normal)
+        view.setTitle("ROLL", for: .normal)
         return view
     }()
     
@@ -60,9 +66,14 @@ class ViewController: UIViewController {
         viewModel.touchDetected(result: result)
     }
     
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        viewModel.deviceShaked()
+    }
+    
     private func configureUI() {
         view.addSubview(sceneView)
         view.addSubview(rollButton)
+        view.addSubview(descriptionLabel)
         
         sceneView.debugOptions = [.showFeaturePoints]
         sceneView.delegate = self
@@ -70,6 +81,7 @@ class ViewController: UIViewController {
         
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         rollButton.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -77,7 +89,9 @@ class ViewController: UIViewController {
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             rollButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -101,7 +115,9 @@ class ViewController: UIViewController {
         }.store(in: &viewModel.subscriber)
         
         viewModel.$dices.sink { [weak self] dices in
-            self?.rollButton.isHidden = dices.isEmpty
+            let isHidden = dices.isEmpty
+            self?.rollButton.isHidden = isHidden
+            self?.descriptionLabel.isHidden = isHidden 
         }.store(in: &viewModel.subscriber)
     }
     
