@@ -12,7 +12,7 @@ import UIKit
 
 class ViewModel {
     @Published var alertMessage: String?
-    @Published var moonNode: SCNNode?
+    @Published var moonNode: MoonNode?
     @Published var diceNode: SCNNode?
     @Published var dices: [SCNNode] = []
     
@@ -45,6 +45,11 @@ class ViewModel {
         rollAllDices()
     }
     
+    func clearButtonTapped() {
+        dices.forEach({ $0.removeFromParentNode() })
+        dices = []
+    }
+    
     private func rollAllDices() {
         dices.forEach({ roll($0) })
     }
@@ -71,12 +76,12 @@ class ViewModel {
         self.diceNode = dice
     }
     
-    private func createMoonNode() -> SCNNode {
+    private func createMoonNode() -> MoonNode {
         let moon = SCNSphere(radius: 0.2)
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "art.scnassets/8k_moon.jpeg")
         moon.materials = [material]
-        let node = SCNNode()
+        let node = MoonNode()
         node.position = .init(-1, 1, -1)
         node.geometry = moon
         return node

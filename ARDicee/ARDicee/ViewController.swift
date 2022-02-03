@@ -42,6 +42,22 @@ class ViewController: UIViewController {
         return view
     }()
     
+    private lazy var clearButton: UIButton = {
+        let view = UIButton(configuration: .filled(), primaryAction: .init(handler: { _ in
+            self.viewModel.clearButtonTapped()
+        }))
+        view.tintColor = .systemRed
+        view.setTitle("CLEAR", for: .normal)
+        return view
+    }()
+    
+    private lazy var verticalStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [rollButton, clearButton])
+        view.axis = .vertical
+        view.spacing = 12
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -72,7 +88,7 @@ class ViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(sceneView)
-        view.addSubview(rollButton)
+        view.addSubview(verticalStackView)
         view.addSubview(descriptionLabel)
         
         sceneView.debugOptions = [.showFeaturePoints]
@@ -80,7 +96,7 @@ class ViewController: UIViewController {
         sceneView.autoenablesDefaultLighting = true
         
         sceneView.translatesAutoresizingMaskIntoConstraints = false
-        rollButton.translatesAutoresizingMaskIntoConstraints = false
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -88,8 +104,10 @@ class ViewController: UIViewController {
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            rollButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
+            verticalStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
             descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
@@ -117,7 +135,8 @@ class ViewController: UIViewController {
         viewModel.$dices.sink { [weak self] dices in
             let isHidden = dices.isEmpty
             self?.rollButton.isHidden = isHidden
-            self?.descriptionLabel.isHidden = isHidden 
+            self?.descriptionLabel.isHidden = isHidden
+            self?.clearButton.isHidden = isHidden
         }.store(in: &viewModel.subscriber)
     }
     
