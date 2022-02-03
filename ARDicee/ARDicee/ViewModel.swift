@@ -14,6 +14,7 @@ class ViewModel {
     @Published var alertMessage: String?
     @Published var moonNode: SCNNode?
     @Published var diceNode: SCNNode?
+    @Published var dices: [SCNNode] = []
     
     var subscriber: Set<AnyCancellable> = .init()
     
@@ -29,6 +30,23 @@ class ViewModel {
         } else {
             self.alertMessage = "Your device is not available for AR World Tracking Service. Sorry for inconvenience"
         }
+    }
+    
+    func diceGenerated(_ dice: SCNNode) {
+        roll(dice)
+        dices.append(dice)
+    }
+    
+    func rollButtonTapped() {
+        rollAllDices()
+    }
+    
+    func deviceShaked() {
+        rollAllDices()
+    }
+    
+    private func rollAllDices() {
+        dices.forEach({ roll($0) })
     }
     
     func viewWillDisappear(sceneView: ARSCNView) {
@@ -70,5 +88,11 @@ class ViewModel {
         let column3 = result.worldTransform.columns.3
         diceNode.position = .init(column3.x, column3.y, column3.z)
         return diceNode
+    }
+    
+    private func roll(_ dice: SCNNode) {
+        let x = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
+        let z = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
+        dice.runAction(.rotateBy(x: x, y: 0, z: z, duration: 0.5))
     }
 }
