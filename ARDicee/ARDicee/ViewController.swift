@@ -82,6 +82,9 @@ class ViewController: UIViewController {
         
         viewModel.$diceNode.compactMap({ $0 }).sink { [weak self] dice in
             self?.addNode(dice)
+            let x = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
+            let z = CGFloat(arc4random_uniform(4) + 1) * CGFloat(Float.pi/2)
+            dice.runAction(.rotateBy(x: x, y: 0, z: z, duration: 0.5))
         }.store(in: &viewModel.subscriber)
     }
     
